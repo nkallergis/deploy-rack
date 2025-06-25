@@ -305,7 +305,7 @@ storage_allocations:
     "!ref": "{{ site_name }}-object{{ sa + 1 }}"
   {% endfor %}
 
-virual_machines:
+virtual_machines:
   - "!create_or_update:name": "{{ site_name }}-vm01"
     status__name: "Active"
     cluster: "!ref:{{ site_name }}-cluster1"
