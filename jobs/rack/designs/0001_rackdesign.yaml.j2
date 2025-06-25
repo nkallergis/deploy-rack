@@ -142,57 +142,57 @@ locations:
             role__name: "Branch:Loopback"
             "!ref": "{{ site_name }}-sw{{ sw + 1 }}:Loopback0"
     {% endfor %}
-#     # ----- Servers -----
-#     {% for srv in range(8) %}
-#       - "!create_or_update:name": "{{ site_name }}-srv{{ srv + 1 }}"
-#         status__name: "Active"
-#         device_type__model: "HP Dummy Server"
-#         role__name: "Server"
-#         platform__name: "Linux"
-#         tenant__name: "Autocon3"
-#         cluster__name: "{{ site_name }}-cluster1"
-#         rack__name: "{{ site_name }}-rack1"
-#         face: "front"
-#         position: "{{ srv + 20 }}"
-#         serial: "ABC000{{ srv + 1 }}"
-#         asset_tag: "{{ site_name }}-srv{{ srv + 1 }}"
-#         secrets_group__name: "DEVICE_CREDENTIALS"
-#         "!ref": "{{ site_name }}-srv{{ srv + 1 }}"
-#         interfaces:
-#         {% for port in range(2) %}
-#           - "!create_or_update:name": "eth{{ port + 1 }}"
-#             type: "10gbase-t"
-#             status__name: "Active"
-#             "!connect_cable":
-#               to: "!ref:{{ site_name }}-sw{{ port + 1 }}:eth{{ srv + 3 }}"
-#               status__name: "Connected"
-#         {% endfor %}
-#     {% endfor %}
-#     # ----- Storage -----
-#     {% for stg in range(1) %}
-#       - "!create_or_update:name": "{{ site_name }}-stg{{ stg + 1 }}"
-#         status__name: "Active"
-#         device_type__model: "HP Storage"
-#         role__name: "Storage Array"
-#         platform__name: "Linux"
-#         tenant__name: "Autocon3"
-#         rack__name: "{{ site_name }}-rack1"
-#         face: "front"
-#         position: "{{ stg + 1 }}"
-#         serial: "ABC000{{ stg + 1 }}"
-#         asset_tag: "{{ site_name }}-stg{{ stg + 1 }}"
-#         secrets_group__name: "DEVICE_CREDENTIALS"
-#         "!ref": "{{ site_name }}-stg{{ stg + 1 }}"
-#         interfaces:
-#         {% for port in range(2) %}
-#           - "!create_or_update:name": "eth{{ port + 1 }}"
-#             type: "10gbase-t"
-#             status__name: "Active"
-#             "!connect_cable":
-#               to: "!ref:{{ site_name }}-sw{{ port + 1 }}:eth{{ stg + 10 }}"
-#               status__name: "Connected"
-#         {% endfor %}
-#     {% endfor %}
+    # ----- Servers -----
+    {% for srv in range(8) %}
+      - "!create_or_update:name": "{{ site_name }}-srv{{ srv + 1 }}"
+        status__name: "Active"
+        device_type__model: "HP Dummy Server"
+        role__name: "Server"
+        platform__name: "Linux"
+        tenant__name: "Autocon3"
+        cluster__name: "{{ site_name }}-cluster1"
+        rack__name: "{{ site_name }}-rack1"
+        face: "front"
+        position: "{{ srv + 20 }}"
+        serial: "ABC000{{ srv + 1 }}"
+        asset_tag: "{{ site_name }}-srv{{ srv + 1 }}"
+        secrets_group__name: "DEVICE_CREDENTIALS"
+        "!ref": "{{ site_name }}-srv{{ srv + 1 }}"
+        interfaces:
+        {% for port in range(2) %}
+          - "!create_or_update:name": "eth{{ port + 1 }}"
+            type: "10gbase-t"
+            status__name: "Active"
+            "!connect_cable":
+              to: "!ref:{{ site_name }}-sw{{ port + 1 }}:eth{{ srv + 3 }}"
+              status__name: "Connected"
+        {% endfor %}
+    {% endfor %}
+    # ----- Storage -----
+    {% for stg in range(1) %}
+      - "!create_or_update:name": "{{ site_name }}-stg{{ stg + 1 }}"
+        status__name: "Active"
+        device_type__model: "HP Storage"
+        role__name: "Storage Array"
+        platform__name: "Linux"
+        tenant__name: "Autocon3"
+        rack__name: "{{ site_name }}-rack1"
+        face: "front"
+        position: "{{ stg + 1 }}"
+        serial: "ABC000{{ stg + 1 }}"
+        asset_tag: "{{ site_name }}-stg{{ stg + 1 }}"
+        secrets_group__name: "DEVICE_CREDENTIALS"
+        "!ref": "{{ site_name }}-stg{{ stg + 1 }}"
+        interfaces:
+        {% for port in range(2) %}
+          - "!create_or_update:name": "eth{{ port + 1 }}"
+            type: "10gbase-t"
+            status__name: "Active"
+            "!connect_cable":
+              to: "!ref:{{ site_name }}-sw{{ port + 1 }}:eth{{ stg + 10 }}"
+              status__name: "Connected"
+        {% endfor %}
+    {% endfor %}
 
 
 ip_addresses:
@@ -276,21 +276,21 @@ tenants:
     "!ref": "{{ site_name }}-tenant{{ tenant + 1 }}"
   {% endfor %}
 
-# storage_allocations:
-#   {% for sa in range(4) %}
-#   - "!create_or_update:name": "{{ site_name }}-block{{ sa + 1 }}"
-#     storage_protocol__name: "iSCSI"
-#     capacity: 100
-#     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-#     "!ref": "{{ site_name }}-block{{ sa + 1 }}"
-#   - "!create_or_update:name": "{{ site_name }}-file{{ sa + 1 }}"
-#     storage_protocol__name: "NFSv4"
-#     capacity: 100
-#     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-#     "!ref": "{{ site_name }}-file{{ sa + 1 }}"
-#   - "!create_or_update:name": "{{ site_name }}-object{{ sa + 1 }}"
-#     storage_protocol__name: "S3"
-#     capacity: 100
-#     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-#     "!ref": "{{ site_name }}-object{{ sa + 1 }}"
-#   {% endfor %}
+storage_allocations:
+  {% for sa in range(4) %}
+  - "!create_or_update:name": "{{ site_name }}-block{{ sa + 1 }}"
+    storage_protocol__name: "iSCSI"
+    capacity: 100
+    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-block{{ sa + 1 }}"
+  - "!create_or_update:name": "{{ site_name }}-file{{ sa + 1 }}"
+    storage_protocol__name: "NFSv4"
+    capacity: 100
+    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-file{{ sa + 1 }}"
+  - "!create_or_update:name": "{{ site_name }}-object{{ sa + 1 }}"
+    storage_protocol__name: "S3"
+    capacity: 100
+    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-object{{ sa + 1 }}"
+  {% endfor %}
