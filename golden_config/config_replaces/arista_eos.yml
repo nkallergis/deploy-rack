@@ -1,0 +1,7 @@
+---
+# yamllint disable rule:quoted-strings
+- name: "interface_names"
+  platform_slug: "arista_eos"
+  description: "Replace interface names to match clab topologies"
+  regex: 'interface\s+Ethernet([1-8]{1})'
+  replace: 'interface eth\1'

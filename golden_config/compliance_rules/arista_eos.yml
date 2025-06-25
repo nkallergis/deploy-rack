@@ -1,0 +1,99 @@
+---
+- feature_slug: "aaa"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    aaa
+    no aaa
+    line
+    role
+    tacacs
+  config_type: "cli"
+
+- feature_slug: "banner"
+  platform_network_driver: "arista_eos"
+  config_ordered: true
+  config_remediation: true
+  match_config: |
+    banner
+  config_type: "cli"
+
+- feature_slug: "hostname"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    hostname
+  config_type: "cli"
+
+- feature_slug: "spanning_tree"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    spanning
+  config_type: "cli"
+
+- feature_slug: "snmp"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    snmp
+  config_type: "cli"
+
+- feature_slug: "ntp"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    ntp source
+    ntp server
+  config_type: "cli"
+
+- feature_slug: "logging"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    logging
+    login on
+  config_type: "cli"
+
+- feature_slug: "dns"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    ip name-server
+    no ip domain lookup
+    ip domain
+  config_type: "cli"
+
+- feature_slug: "dhcp"
+  platform_network_driver: "arista_eos"
+  config_ordered: false
+  config_remediation: true
+  match_config: |
+    ip dhcp snooping
+    no ip dhcp snooping
+  config_type: "cli"
+
+- feature_slug: "interfaces"
+  platform_network_driver: "arista_eos"
+  config_ordered: true
+  config_remediation: true
+  match_config: |
+    interface eth
+    interface Ethernet
+    interface Loopback
+  config_type: "cli"
+
+- feature_slug: "ospf"
+  platform_network_driver: "arista_eos"
+  config_ordered: true
+  config_remediation: true
+  match_config: |
+    router ospf
+  config_type: "cli"

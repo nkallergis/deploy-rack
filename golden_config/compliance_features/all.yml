@@ -1,0 +1,48 @@
+---
+- name: "AAA"
+  slug: "aaa"
+  description: ""
+
+- name: "Banner"
+  slug: "banner"
+  description: ""
+
+- name: "Hostname"
+  slug: "hostname"
+  description: ""
+
+- name: "Spanning Tree"
+  slug: "spanning_tree"
+  description: ""
+
+- name: "SNMP"
+  slug: "snmp"
+  description: ""
+
+- name: "NTP"
+  slug: "ntp"
+  description: ""
+
+- name: "Logging"
+  slug: "logging"
+  description: ""
+
+- name: "DNS"
+  slug: "dns"
+  description: ""
+
+- name: "IP Routing"
+  slug: "ip_routing"
+  description: ""
+
+- name: "DHCP"
+  slug: "dhcp"
+  description: ""
+
+- name: "Interfaces"
+  slug: "interfaces"
+  description: ""
+
+- name: "OSPF"
+  slug: "ospf"
+  description: ""
