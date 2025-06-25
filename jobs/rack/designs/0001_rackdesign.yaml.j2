@@ -330,6 +330,12 @@ ip_address_assignments:
   {%   endfor %}
   {% endfor %}
 
+load_balancer_pools:
+  - "!create_or_update:name": "{{ site_name }}-lbpool01"
+    load_balancing_algorithm: "round_robin"
+    tenant: "!ref:{{ site_name }}-tenant1"
+    "!ref": "{{ site_name }}-lbpool01"
+
 virtual_servers:
   - "!create_or_update:name": "{{ site_name }}-vip01"
     load_balancer_type: "layer4"
@@ -337,9 +343,6 @@ virtual_servers:
     protocol: "https"
     tenant: "!ref:{{ site_name }}-tenant1"
     vip: "!ref:vip01"
+    load_balancer_pool: "!ref:{{ site_name }}-lbpool01"
     "!ref": "{{ site_name }}-vip01"
 
-load_balancer_pools:
-  - "!create_or_update:name": "{{ site_name }}-lbpool01"
-    load_balancing_algorithm: "round_robin"
-    tenant: "!ref:{{ site_name }}-tenant1"
