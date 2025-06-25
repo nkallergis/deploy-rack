@@ -336,6 +336,18 @@ load_balancer_pools:
     tenant: "!ref:{{ site_name }}-tenant1"
     "!ref": "{{ site_name }}-lbpool01"
 
+load_balancer_pool_members:
+  - "!create_or_update:load_balancer_pool": "!ref:{{ site_name }}-lbpool01"
+    "!create_or_update:ip_address": "!ref:lan_data01"
+    port: 443
+    status__name: "Active"
+    tenant: "!ref:{{ site_name }}-tenant1"
+  - "!create_or_update:load_balancer_pool": "!ref:{{ site_name }}-lbpool01"
+    "!create_or_update:ip_address": "!ref:lan_data02"
+    port: 443
+    status__name: "Active"
+    tenant: "!ref:{{ site_name }}-tenant1"
+
 virtual_servers:
   - "!create_or_update:name": "{{ site_name }}-vip01"
     load_balancer_type: "layer4"
