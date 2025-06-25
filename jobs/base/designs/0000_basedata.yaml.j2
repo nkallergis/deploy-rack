@@ -127,11 +127,11 @@ secrets_group_associations:
     "!create_or_update:access_type": "Generic"
     "!create_or_update:secret_type": "password"
 
-containerlab_kinds:
-  - "!create_or_update:kind": "ceos"
-    platform__name: "Arista EOS"
-    image: "ceos:4.32.1F"
-    node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/autocon3-design-workshop/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
+# containerlab_kinds:
+#   - "!create_or_update:kind": "ceos"
+#     platform__name: "Arista EOS"
+#     image: "ceos:4.32.1F"
+#     node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/autocon3-design-workshop/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
 
 remediation_settings:
   - "!create_or_update:platform__name": "Arista EOS"
