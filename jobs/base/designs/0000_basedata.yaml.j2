@@ -1,0 +1,156 @@
+---
+tenants:
+  - "!create_or_update:name": "Autocon3"
+
+providers:
+  - "!create_or_update:name": "NTC"
+    provider_networks:
+      - "!create_or_update:name": "NTC-WAN"
+
+location_types:
+  - "!create_or_update:name": "Region"
+    children:
+      - "!create_or_update:name": "Site"
+        content_types:
+          - { "!get:model": "device" }
+          - { "!get:model": "rack" }
+          - { "!get:model": "prefix" }
+          - { "!get:model": "vlan" }
+          - { "!get:model": "vlangroup" }
+          - { "!get:model": "circuittermination" }
+          - { "!get:model": "cluster" }
+
+locations:
+  - "!create_or_update:name": "Athens"
+    location_type__name: "Region"
+    status__name: "Active"
+
+manufacturers:
+  - "!create_or_update:name": "Arista"
+  - "!create_or_update:name": "HP"
+
+platforms:
+  - "!create_or_update:name": "Arista EOS"
+    manufacturer__name: "Arista"
+    "network_driver": "arista_eos"
+  - "!create_or_update:name": "Linux"
+
+software_versions:
+  - "!create_or_update:version": "4.32.1F"
+    platform__name: "Arista EOS"
+    status__name: "Active"
+
+device_types:
+  - "!create_or_update:model": "Dummy"
+    manufacturer__name: "Arista"
+  - "!create_or_update:model": "HP Dummy Server"
+    manufacturer__name: "HP"
+  - "!create_or_update:model": "HP Storage"
+    manufacturer__name: "HP"
+
+roles:
+  - "!create_or_update:name": "Storage Array"
+    color: "90708b"
+    content_types:
+      - { "!get:model": "device" }
+  - "!create_or_update:name": "Server"
+    color: "60708b"
+    content_types:
+      - { "!get:model": "device" }
+  - "!create_or_update:name": "Router"
+    color: "607d8b"
+    content_types:
+      - { "!get:model": "device" }
+  - "!create_or_update:name": "Switch"
+    color: "009688"
+    content_types:
+      - { "!get:model": "device" }
+  - "!create_or_update:name": "Branch:Supernet"
+    color: "ffc107"
+    content_types:
+      - { "!get:model": "prefix" }
+      - { "!get:model": "ipaddress" }
+  - "!create_or_update:name": "Branch:L3Link"
+    color: "ff9800"
+    content_types:
+      - { "!get:model": "prefix" }
+      - { "!get:model": "ipaddress" }
+      - { "!get:model": "interface" }
+  - "!create_or_update:name": "Branch:Loopback"
+    color: "ff5722"
+    content_types:
+      - { "!get:model": "prefix" }
+      - { "!get:model": "ipaddress" }
+      - { "!get:model": "interface" }
+  - "!create_or_update:name": "Branch:LAN"
+    color: "4caf50"
+    content_types:
+      - { "!get:model": "prefix" }
+      - { "!get:model": "ipaddress" }
+      - { "!get:model": "interface" }
+  - "!create_or_update:name": "P2P"
+    color: "4caf50"
+    content_types:
+      - { "!get:model": "prefix" }
+      - { "!get:model": "ipaddress" }
+      - { "!get:model": "interface" }
+
+circuit_types:
+  - "!create_or_update:name": "Ethernet"
+
+prefixes:
+  - "!create_or_update:prefix": "{{ base_prefix }}"
+    type: "container"
+    status__name: "Active"
+
+secrets:
+  - "!create_or_update:name": "DEVICE_USERNAME"
+    provider: "environment-variable"
+    parameters: {"variable": "NAUTOBOT_SUPERUSER_NAME"}
+    "!ref": "device_username"
+  - "!create_or_update:name": "DEVICE_PASSWORD"
+    provider: "environment-variable"
+    parameters: {"variable": "NAUTOBOT_SUPERUSER_PASSWORD"}
+    "!ref": "device_password"
+
+secrets_groups:
+  - "!create_or_update:name": "DEVICE_CREDENTIALS"
+    "!ref": "device_credentials"
+
+secrets_group_associations:
+  - "!create_or_update:secrets_group": "!ref:device_credentials"
+    "!create_or_update:secret": "!ref:device_username"
+    "!create_or_update:access_type": "Generic"
+    "!create_or_update:secret_type": "username"
+  - "!create_or_update:secrets_group": "!ref:device_credentials"
+    "!create_or_update:secret": "!ref:device_password"
+    "!create_or_update:access_type": "Generic"
+    "!create_or_update:secret_type": "password"
+
+containerlab_kinds:
+  - "!create_or_update:kind": "ceos"
+    platform__name: "Arista EOS"
+    image: "ceos:4.32.1F"
+    node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/autocon3-design-workshop/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
+
+remediation_settings:
+  - "!create_or_update:platform__name": "Arista EOS"
+    "remediation_type": "hierconfig"
+
+{% raw %}
+golden_config_settings:
+  - "!create_or_update:name": "Default Settings"
+    "!create_or_update:slug": "default"
+    "weight": 1000
+    "backup_repository__name": "GRNOG18"
+    "backup_path_template": "gc_backups/{{obj.name}}.cfg"
+    "intended_repository__name": "GRNOG18"
+    "intended_path_template": "gc_intended/{{obj.name}}.cfg"
+    "jinja_repository__name": "GRNOG18"
+    "jinja_path_template": "gc_templates/{{obj.platform.network_driver}}.j2"
+    "sot_agg_query__name": "device_info"
+    "dynamic_group__name": "GoldenConfigSetting Default Settings scope"
+{% endraw %}
+
+cluster_types:
+  - "!create_or_update:name": "Generic"
