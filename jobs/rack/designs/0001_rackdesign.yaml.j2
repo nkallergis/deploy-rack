@@ -335,6 +335,6 @@ virtual_servers:
     load_balancer_type: "layer4"
     port: 443
     protocol: "https"
-    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    tenant: "!ref:{{ site_name }}-tenant1"
     vip: "!ref:vip01"
     "!ref": "{{ site_name }}-vip01"
