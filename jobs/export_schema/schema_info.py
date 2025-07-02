@@ -1,6 +1,7 @@
 import csv
 import io
 
+from datetime import datetime
 from django.db import connection
 
 from nautobot.apps.jobs import Job, register_jobs
@@ -166,7 +167,8 @@ class ExportDBSchemaToCSV(Job):
     def run(self, **kwargs):
         """Run the job."""
         csv_data = get_schema_info_csv(preamble=SMALL_QUERY, query=LARGE_QUERY)
-        self.create_file("schema_info.csv", csv_data)
+        current_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.create_file(f"schema_info.{current_datetime}.csv", csv_data)
 
 jobs = [ExportDBSchemaToCSV]
 register_jobs(*jobs)
