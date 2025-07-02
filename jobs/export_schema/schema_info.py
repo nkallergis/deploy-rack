@@ -3,6 +3,8 @@ import io
 
 from django.db import connection
 
+from nautobot.apps.jobs import Job, register_jobs
+
 SMALL_QUERY = """
     SET enable_nestloop = 0;
     SELECT
