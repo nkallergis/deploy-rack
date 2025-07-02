@@ -40,14 +40,21 @@ SMALL_QUERY = """
 """
 
 LARGE_QUERY = """
-    WITH base_offset AS (
-        SELECT COALESCE(MAX(ordinal_position), 0) AS base FROM information_schema.columns
+    WITH catalog_info AS (
+        SELECT table_catalog
+        FROM information_schema.tables
+        WHERE table_schema NOT IN ('information_schema', 'pg_catalog')
+        LIMIT 1
+    ),
+    base_offset AS (
+        SELECT COALESCE(MAX(ordinal_position), 0) AS base
+        FROM information_schema.columns
         WHERE table_schema NOT IN ('information_schema', 'pg_catalog')
     ),
     customfield_info AS (
         SELECT
             'postgresql' AS dbms,
-            'nautobot' AS table_catalog,
+            ci.table_catalog,
             'public' AS table_schema,
             CONCAT(dct.app_label, '_', dct.model) AS table_name,
             CONCAT('CF_', ecf.key) AS column_name,
@@ -62,6 +69,7 @@ LARGE_QUERY = """
         INNER JOIN extras_customfield_content_types ecct ON ecf.id = ecct.customfield_id
         INNER JOIN django_content_type dct ON ecct.contenttype_id = dct.id
         CROSS JOIN base_offset bo
+        CROSS JOIN catalog_info ci
     ),
     cf_count AS (
         SELECT MAX(ordinal_position) AS base FROM customfield_info
@@ -69,7 +77,7 @@ LARGE_QUERY = """
     customrelationship_info AS (
         SELECT
             'postgresql' AS dbms,
-            'nautobot' AS table_catalog,
+            ci.table_catalog,
             'public' AS table_schema,
             CONCAT(src_ct.app_label, '_', src_ct.model) AS table_name,
             CONCAT('CR_', dest_ct.model, '_id') AS column_name,
@@ -84,6 +92,7 @@ LARGE_QUERY = """
         INNER JOIN django_content_type src_ct ON er.source_type_id = src_ct.id
         INNER JOIN django_content_type dest_ct ON er.destination_type_id = dest_ct.id
         CROSS JOIN cf_count cf
+        CROSS JOIN catalog_info ci
     ),
     schema_info AS (
         SELECT
@@ -110,10 +119,10 @@ LARGE_QUERY = """
         AND c.table_name = k.table_name
         AND c.column_name = k.column_name
         LEFT JOIN information_schema.key_column_usage k2
-        ON k.position_in_unique_constraint = k2.ordinal_position
-        AND r.unique_constraint_catalog = k2.constraint_catalog
-        AND r.unique_constraint_schema = k2.constraint_schema
-        AND r.unique_constraint_name = k2.constraint_name
+            ON k.position_in_unique_constraint = k2.ordinal_position
+            AND r.unique_constraint_catalog = k2.constraint_catalog
+            AND r.unique_constraint_schema = k2.constraint_schema
+            AND r.unique_constraint_name = k2.constraint_name
         WHERE t.TABLE_TYPE = 'BASE TABLE'
         AND t.table_schema NOT IN ('information_schema', 'pg_catalog')
     )
