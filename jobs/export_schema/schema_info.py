@@ -1,9 +1,9 @@
+"""Export Nautobot database schema to CSV for use with Lucidchart."""
 import csv
 import io
-
 from datetime import datetime
-from django.db import connection
 
+from django.db import connection
 from nautobot.apps.jobs import Job, register_jobs
 
 SMALL_QUERY = """
@@ -136,6 +136,21 @@ LARGE_QUERY = """
 
 
 def get_schema_info_csv(preamble, query):
+    """
+    Executes the given SQL preamble and query using the database connection.
+
+    Retrieves the results, and returns them as a CSV-formatted string.
+
+    Args:
+        preamble (str): SQL statement(s) to be executed before the main query (e.g., SET commands).
+        query (str): The SQL query to execute and export results from.
+
+    Returns:
+        str: The query results formatted as a CSV string, including headers.
+
+    Raises:
+        Any exceptions raised by the database connection or cursor operations.
+    """
     with connection.cursor() as cursor:
         cursor.execute(preamble)
         cursor.execute(query)
@@ -158,13 +173,13 @@ def get_schema_info_csv(preamble, query):
 class ExportDBSchemaToCSV(Job):
     """Job to export Nautobot database schema to CSV for use with Lucidchart."""
 
-    class Meta:
+    class Meta:  #pylint: disable=too-few-public-methods
         """Meta object for ExportDBSchemaToCSV."""
         name = "Export Nautobot DB Schema to CSV"
         description = "Export Nautobot database schema to CSV file for use with Lucidchart."
         commit_default = False
-    
-    def run(self, **kwargs):
+
+    def run(self, *args, **kwargs):
         """Run the job."""
         csv_data = get_schema_info_csv(preamble=SMALL_QUERY, query=LARGE_QUERY)
         current_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
