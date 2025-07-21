@@ -252,7 +252,7 @@ dynamic_groups:
     content_type:
       "!get:model": "device"
       "!get:app_label": "dcim"
-    filter: {"location": ["{{ site_name }}"], "platform": "Arista EOS"} 
+    filter: {"location": ["{{ site_name }}"], "platform": ["Arista EOS"]} 
 
 {% if lab_topology %}
 containerlab_topologies:
