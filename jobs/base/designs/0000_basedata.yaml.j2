@@ -131,7 +131,7 @@ containerlab_kinds:
   - "!create_or_update:kind": "ceos"
     platform__name: "Arista EOS"
     image: "ceos:4.32.1F"
-    node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/autocon3-design-workshop/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
+    node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/deploy-rack/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
 
 remediation_settings:
   - "!create_or_update:platform__name": "Arista EOS"
