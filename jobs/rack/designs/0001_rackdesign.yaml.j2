@@ -331,10 +331,10 @@ ip_address_assignments:
       "!create_or_update:interface": "!ref:{{ site_name }}-sw{{ sw + 1 }}:eth{{ rtr + 1 }}"
   {%   endfor %}
   {% endfor %}
-  - "!create_or_update:ip_address": "!ref:lan_data01"
-    "!create_or_update:vm_interface": "!ref:vm01intf"
-  - "!create_or_update:ip_address": "!ref:lan_data02"
-    "!create_or_update:vm_interface": "!ref:vm02intf"
+    - "!create_or_update:ip_address": "!ref:lan_data01"
+      "!create_or_update:vm_interface": "!ref:vm01intf"
+    - "!create_or_update:ip_address": "!ref:lan_data02"
+      "!create_or_update:vm_interface": "!ref:vm02intf"
 
 load_balancer_pools:
   - "!create_or_update:name": "{{ site_name }}-lbpool01"
