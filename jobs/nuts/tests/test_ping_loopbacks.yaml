@@ -1,0 +1,54 @@
+---
+# Ping Loopbacks
+- test_class: TestNapalmPing
+  test_execution:
+    count: 5
+  test_data:
+    - host: clab-ath01-ath01-rtr1
+      destination: 10.0.0.1
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr1
+      destination: 10.0.0.2
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr1
+      destination: 10.0.0.3
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr2
+      destination: 10.0.0.0
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr2
+      destination: 10.0.0.2
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr2
+      destination: 10.0.0.3
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw1
+      destination: 10.0.0.0
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw1
+      destination: 10.0.0.1
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw1
+      destination: 10.0.0.3
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw2
+      destination: 10.0.0.0
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw2
+      destination: 10.0.0.1
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw2
+      destination: 10.0.0.2
+      expected: SUCCESS
+      max_drop: 2

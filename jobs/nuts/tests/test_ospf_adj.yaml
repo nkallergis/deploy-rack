@@ -1,0 +1,12 @@
+---
+# OSPF Adjacencies
+- test_class: TestNetmikoOspfNeighborsCount
+  test_data:
+    - host: clab-ath01-ath01-rtr1
+      neighbor_count: 2
+    - host: clab-ath01-ath01-rtr2
+      neighbor_count: 2
+    - host: clab-ath01-ath01-sw1
+      neighbor_count: 2
+    - host: clab-ath01-ath01-sw2
+      neighbor_count: 2

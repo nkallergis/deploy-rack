@@ -1,0 +1,39 @@
+---
+# Ping Connected
+- test_class: TestNapalmPing
+  test_execution:
+    count: 5
+  test_data:
+    - host: clab-ath01-ath01-rtr1
+      destination: 10.0.0.66
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr1
+      destination: 10.0.0.70
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr2
+      destination: 10.0.0.74
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-rtr2
+      destination: 10.0.0.78
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw1
+      destination: 10.0.0.65
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw1
+      destination: 10.0.0.73
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw2
+      destination: 10.0.0.69
+      expected: SUCCESS
+      max_drop: 2
+    - host: clab-ath01-ath01-sw2
+      destination: 10.0.0.77
+      expected: SUCCESS
+      max_drop: 2
+#}
