@@ -298,6 +298,7 @@ virtual_machines:
     interfaces:
       - "!create_or_update:name": "eth0"
         status__name: "Active"
+        "!ref": "vm01intf"
   - "!create_or_update:name": "{{ site_name }}-vm02"
     status__name: "Active"
     cluster: "!ref:{{ site_name }}-cluster1"
@@ -308,6 +309,7 @@ virtual_machines:
     interfaces:
       - "!create_or_update:name": "eth0"
         status__name: "Active"
+        "!ref": "vm02intf"
 
 ip_address_assignments:
 # ----- LOOPBACKS -----
@@ -329,6 +331,10 @@ ip_address_assignments:
       "!create_or_update:interface": "!ref:{{ site_name }}-sw{{ sw + 1 }}:eth{{ rtr + 1 }}"
   {%   endfor %}
   {% endfor %}
+  - "!create_or_update:ip_address": "!ref:lan_data01"
+    "!create_or_update:vm_interface": "!ref:vm01intf"
+  - "!create_or_update:ip_address": "!ref:lan_data02"
+    "!create_or_update:vm_interface": "!ref:vm02intf"
 
 load_balancer_pools:
   - "!create_or_update:name": "{{ site_name }}-lbpool01"
