@@ -1,0 +1,8 @@
+---
+# LLDP Neighbors
+- test_class: TestNapalmLldpNeighborsCount
+  test_data:
+{% for node in nodes %}
+    - host: clab-{{ device_group.name }}-{{ node }}
+      neighbor_count: 3
+{% endfor %}

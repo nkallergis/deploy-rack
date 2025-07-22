@@ -1,0 +1,14 @@
+---
+# Ping Loopbacks
+- test_class: TestNapalmPing
+  test_execution:
+    count: 5
+  test_data:
+{% for device, remoteloopbacks in device_remoteloopbacks %}
+{%   for remoteloopback in remoteloopbacks %}
+    - host: clab-{{ device_group.name }}-{{ device }}
+      destination: {{ remoteloopback }}
+      expected: SUCCESS
+      max_drop: 2
+{%   endfor %}
+{% endfor %}

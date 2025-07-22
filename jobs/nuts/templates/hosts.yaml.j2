@@ -1,0 +1,7 @@
+---
+{% for node in nodes %}
+clab-{{ device_group.name }}-{{ node }}:
+  hostname: clab-{{ device_group.name }}-{{ node }}
+  groups:
+    - eos
+{% endfor %}

@@ -1,0 +1,8 @@
+---
+# OSPF Adjacencies
+- test_class: TestNetmikoOspfNeighborsCount
+  test_data:
+{% for node in nodes %}
+    - host: clab-{{ device_group.name }}-{{ node }}
+      neighbor_count: 2
+{% endfor %}

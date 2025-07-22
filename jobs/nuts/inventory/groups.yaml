@@ -1,0 +1,10 @@
+---
+eos:
+  username: admin
+  password: admin
+  platform: eos
+  connection_options:
+    napalm:
+      extras:
+        optional_args:
+          transport: ssh

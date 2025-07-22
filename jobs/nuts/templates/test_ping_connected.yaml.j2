@@ -1,0 +1,12 @@
+---
+# Ping Connected
+- test_class: TestNapalmPing
+  test_execution:
+    count: 5
+  test_data:
+{% for device, peer in device_peers %}
+    - host: clab-{{ device_group.name }}-{{ device }}
+      destination: {{ peer }}
+      expected: SUCCESS
+      max_drop: 2
+{% endfor %}#}
