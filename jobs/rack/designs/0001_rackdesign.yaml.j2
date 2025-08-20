@@ -175,7 +175,6 @@ locations:
             role__name: "Branch:LAN"
             mode: "access"
             untagged_vlan: "!ref:{{ site_name }}-vlan110"
-            tenant__name: "Autocon3"
             "!ref": "{{ site_name }}-sw{{ sw + 1 }}:SVI110"
           - "!create_or_update:name": "SVI120"
             type: "virtual"
@@ -184,7 +183,6 @@ locations:
             role__name: "Branch:LAN"
             mode: "access"
             untagged_vlan: "!ref:{{ site_name }}-vlan120"
-            tenant__name: "Autocon3"
             "!ref": "{{ site_name }}-sw{{ sw + 1 }}:SVI120"
     {% endfor %}
     # ----- Servers -----
