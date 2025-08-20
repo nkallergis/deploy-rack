@@ -23,26 +23,12 @@ locations:
         role__name: "Branch:LAN"
         tenant__name: "Autocon3"
         "!ref": "{{ site_name }}-vlan110"
-        prefixes:
-          - "!create_or_update:prefix": "{{ lan_data }}"
-            description: "Data LAN"
-            type: "network"
-            role__name: "Branch:LAN"
-            status__name: "Active"
-            tenant__name: "Autocon3"
       - "!create_or_update:vid": 120
         name: "Branch:Voice"
         status__name: "Active"
         role__name: "Branch:LAN"
         tenant__name: "Autocon3"
         "!ref": "{{ site_name }}-vlan120"
-        prefixes:
-          - "!create_or_update:prefix": "{{ lan_voice }}"
-            description: "Voice LAN"
-            type: "network"
-            role__name: "Branch:LAN"
-            status__name: "Active"
-            tenant__name: "Autocon3"
     prefixes:
       - "!create_or_update:prefix": "{{ branch_supernet }}"
         type: "container"
@@ -66,18 +52,20 @@ locations:
         status__name: "Active"
         tenant__name: "Autocon3"
       {% endfor %}
-      {# - "!create_or_update:prefix": "{{ lan_data }}"
+      - "!create_or_update:prefix": "{{ lan_data }}"
         description: "Data LAN"
         type: "network"
         role__name: "Branch:LAN"
         status__name: "Active"
         tenant__name: "Autocon3"
+        vlan: "!ref:{{ site_name }}-vlan110"
       - "!create_or_update:prefix": "{{ lan_voice }}"
         description: "Voice LAN"
         type: "network"
         role__name: "Branch:LAN"
         status__name: "Active"
-        tenant__name: "Autocon3" #}
+        tenant__name: "Autocon3"
+        vlan: "!ref:{{ site_name }}-vlan120"
 
     racks:
       - "!create_or_update:name": "{{ site_name }}-rack1"
