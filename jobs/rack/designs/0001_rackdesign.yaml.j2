@@ -279,7 +279,7 @@ ip_addresses:
     - "!create_or_update:address": "{{ lan_data | network_offset('0.0.0.' ~ (srv + 20) ~ '/24') }}"
       status__name: "Active"
       tenant__name: "Autocon3"
-      "!ref": "lan_data0{{ srv + 1 }}"
+      "!ref": "lan_data2{{ srv + 1 }}"
   {% endfor %}
 
 circuits:
