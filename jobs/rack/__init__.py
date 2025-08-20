@@ -18,7 +18,7 @@ class RackDesign(DesignJob):
         model=Location,
     )
     site_name = StringVar(label="Rack Name", regex=r"\w{3}\d+")
-    lab_topology = BooleanVar(label="Containerlab topology?", default=False, description="Generate a digital twin for the design (containerlab).")
+    # lab_topology = BooleanVar(label="Containerlab topology?", default=False, description="Generate a digital twin for the design (containerlab).")
 
     class Meta:
         """Metadata describing this design job."""

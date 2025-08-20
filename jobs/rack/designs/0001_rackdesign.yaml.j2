@@ -16,6 +16,31 @@ locations:
     location_type__name: "Site"
     parent__name: "{{ region.name }}"
     tenant__name: "Autocon3"
+    vlans:
+      - "!create_or_update:vid": 110
+        name: "Branch:Data"
+        status__name: "Active"
+        role__name: "Branch:LAN"
+        tenant__name: "Autocon3"
+        prefixes:
+          - "!create_or_update:prefix": "{{ lan_data }}"
+            description: "Data LAN"
+            type: "network"
+            role__name: "Branch:LAN"
+            status__name: "Active"
+            tenant__name: "Autocon3"
+      - "!create_or_update:vid": 120
+        name: "Branch:Voice"
+        status__name: "Active"
+        role__name: "Branch:LAN"
+        tenant__name: "Autocon3"
+        prefixes:
+          - "!create_or_update:prefix": "{{ lan_voice }}"
+            description: "Voice LAN"
+            type: "network"
+            role__name: "Branch:LAN"
+            status__name: "Active"
+            tenant__name: "Autocon3"
     prefixes:
       - "!create_or_update:prefix": "{{ branch_supernet }}"
         type: "container"
@@ -39,7 +64,7 @@ locations:
         status__name: "Active"
         tenant__name: "Autocon3"
       {% endfor %}
-      - "!create_or_update:prefix": "{{ lan_data }}"
+      {# - "!create_or_update:prefix": "{{ lan_data }}"
         description: "Data LAN"
         type: "network"
         role__name: "Branch:LAN"
@@ -50,7 +75,7 @@ locations:
         type: "network"
         role__name: "Branch:LAN"
         status__name: "Active"
-        tenant__name: "Autocon3"
+        tenant__name: "Autocon3" #}
 
     racks:
       - "!create_or_update:name": "{{ site_name }}-rack1"
@@ -141,6 +166,22 @@ locations:
             status__name: "Active"
             role__name: "Branch:Loopback"
             "!ref": "{{ site_name }}-sw{{ sw + 1 }}:Loopback0"
+          - "!create_or_update:name": "SVI110"
+            type: "virtual"
+            description: "SVI for VLAN 110"
+            status__name: "Active"
+            role__name: "Branch:LAN"
+            vlan__vid: 110
+            tenant__name: "Autocon3"
+            "!ref": "{{ site_name }}-sw{{ sw + 1 }}:SVI110"
+          - "!create_or_update:name": "SVI120"
+            type: "virtual"
+            description: "SVI for VLAN 120"
+            status__name: "Active"
+            role__name: "Branch:LAN"
+            vlan__vid: 110
+            tenant__name: "Autocon3"
+            "!ref": "{{ site_name }}-sw{{ sw + 1 }}:SVI120"
     {% endfor %}
     # ----- Servers -----
     {% for srv in range(8) %}
