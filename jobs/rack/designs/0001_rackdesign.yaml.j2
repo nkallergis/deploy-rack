@@ -148,6 +148,10 @@ locations:
           - "!create_or_update:name": "eth{{ port + 3 }}"
             type: "10gbase-t"
             status__name: "Active"
+            mode: "tagged"
+            tagged_vlans:
+              - "!ref:{{ site_name }}-vlan110"
+              - "!ref:{{ site_name }}-vlan120"
             "!ref": "{{ site_name }}-sw{{ sw + 1 }}:eth{{ port + 3 }}"
         {% endfor %}
           - "!create_or_update:name": "Loopback0"
