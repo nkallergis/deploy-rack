@@ -387,9 +387,9 @@ ip_address_assignments:
     - "!create_or_update:ip_address": "!ref:lan_data02"
       "!create_or_update:vm_interface": "!ref:vm02intf"
     - "!create_or_update:ip_address": "!ref:svi_data01"
-      "!create_or_update:vm_interface": "!ref:{{ site_name }}-sw1:SVI110"
+      "!create_or_update:interface": "!ref:{{ site_name }}-sw1:SVI110"
     - "!create_or_update:ip_address": "!ref:svi_data02"
-      "!create_or_update:vm_interface": "!ref:{{ site_name }}-sw2:SVI110"
+      "!create_or_update:interface": "!ref:{{ site_name }}-sw2:SVI110"
 
 load_balancer_pools:
   - "!create_or_update:name": "{{ site_name }}-lbpool01"
