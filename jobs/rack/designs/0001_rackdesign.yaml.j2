@@ -295,12 +295,12 @@ dynamic_groups:
       "!get:app_label": "dcim"
     filter: {"location": ["{{ site_name }}"], "platform": ["Arista EOS"]} 
 
-{% if lab_topology %}
+{# {% if lab_topology %}
 containerlab_topologies:
   - "!create_or_update:name": "{{ site_name }}"
     description: "Containerlab topology for {{ site_name }}"
     dynamic_group__name: "{{ site_name }}"
-{% endif %}
+{% endif %} #}
 
 # Add tenants to demo storage allocations
 tenants:
