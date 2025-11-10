@@ -305,13 +305,6 @@ dynamic_groups:
       "!get:app_label": "dcim"
     filter: {"location": ["{{ site_name }}"], "platform": ["Arista EOS"]} 
 
-{# {% if lab_topology %}
-containerlab_topologies:
-  - "!create_or_update:name": "{{ site_name }}"
-    description: "Containerlab topology for {{ site_name }}"
-    dynamic_group__name: "{{ site_name }}"
-{% endif %} #}
-
 # Add tenants to demo storage allocations
 tenants:
   {% for tenant in range(4) %}
@@ -319,30 +312,6 @@ tenants:
     "!ref": "{{ site_name }}-tenant{{ tenant + 1 }}"
   {% endfor %}
 
-storage_allocations:
-  {% for sa in range(4) %}
-  - "!create_or_update:name": "{{ site_name }}-block{{ sa + 1 }}"
-    storage_protocol__name: "iSCSI"
-    capacity: 100
-    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-    cluster:
-      - "!ref:{{ site_name }}-cluster1"
-    "!ref": "{{ site_name }}-block{{ sa + 1 }}"
-  - "!create_or_update:name": "{{ site_name }}-file{{ sa + 1 }}"
-    storage_protocol__name: "NFSv4"
-    capacity: 100
-    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-    cluster:
-      - "!ref:{{ site_name }}-cluster1"
-    "!ref": "{{ site_name }}-file{{ sa + 1 }}"
-  - "!create_or_update:name": "{{ site_name }}-object{{ sa + 1 }}"
-    storage_protocol__name: "S3"
-    capacity: 100
-    tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
-    cluster:
-      - "!ref:{{ site_name }}-cluster1"
-    "!ref": "{{ site_name }}-object{{ sa + 1 }}"
-  {% endfor %}
 
 virtual_machines:
   - "!create_or_update:name": "{{ site_name }}-vm01"

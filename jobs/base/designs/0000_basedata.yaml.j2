@@ -127,30 +127,5 @@ secrets_group_associations:
     "!create_or_update:access_type": "Generic"
     "!create_or_update:secret_type": "password"
 
-containerlab_kinds:
-  - "!create_or_update:kind": "ceos"
-    platform__name: "Arista EOS"
-    image: "ceos:4.32.1F"
-    node_extras: {"startup-config": "https://raw.githubusercontent.com/nkallergis/deploy-rack/refs/heads/main/gc_intended/{% raw %}{{obj.name}}{% endraw %}.cfg"}
-
-remediation_settings:
-  - "!create_or_update:platform__name": "Arista EOS"
-    "remediation_type": "hierconfig"
-
-{% raw %}
-golden_config_settings:
-  - "!create_or_update:name": "Default Settings"
-    "!create_or_update:slug": "default"
-    "weight": 1000
-    "backup_repository__name": "GRNOG18"
-    "backup_path_template": "gc_backups/{{obj.name}}.cfg"
-    "intended_repository__name": "GRNOG18"
-    "intended_path_template": "gc_intended/{{obj.name}}.cfg"
-    "jinja_repository__name": "GRNOG18"
-    "jinja_path_template": "gc_templates/{{obj.platform.network_driver}}.j2"
-    "sot_agg_query__name": "device_info"
-    "dynamic_group__name": "GoldenConfigSetting Default Settings scope"
-{% endraw %}
-
 cluster_types:
   - "!create_or_update:name": "Generic"
